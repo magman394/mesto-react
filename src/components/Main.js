@@ -1,33 +1,37 @@
-import Avatar from '../src/images/avatar-image.jpg';
-import ProfileEditBotton from '../src/images/edit-botton.svg';
-import ProfileAddBotton from '../src/images/add-botton.svg';
-import PopupCloseIcon from '../src/images/Close-Icon.svg';
-import BoxCardDeleteBotton from '../src/images/delete.png';
+import Avatar from '../images/avatar-image.jpg';
+import ProfileEditBotton from '../images/edit-botton.svg';
+import ProfileAddBotton from '../images/add-botton.svg';
+import PopupCloseIcon from '../images/Close-Icon.svg';
 
-function App() {
-  return (
-    <>
-      <div class="page">
-        <header class="header">
-          <div class="header__logo"></div>
-        </header>
+function handleEditAvatarClick() {
+  document.querySelector('#popupAvatar').classList.add('popup_is-opened');
+
+}
+function handleEditProfileClick() {
+  document.querySelector('#popupAutor').classList.add('popup_is-opened');
+
+}
+function handleAddPlaceClick() {
+  document.querySelector('#popupCard').classList.add('popup_is-opened');
+
+}
+function Main() {
+    return (
         <main class="content">
           <section class="profile">
-            <botton class="profile__botton" type="button"><img class="profile__avatar opacity-link opacity-link_avatar" src={Avatar} alt="аватарка"/></botton>
+            <botton class="profile__botton" type="button" onClick={handleEditAvatarClick}><img class="profile__avatar opacity-link opacity-link_avatar" src={Avatar} alt="аватарка"/></botton>
               <div class="profile__profile-info">
                 <div class="profile__edit-name">
                   <h1 class="profile__name"></h1>
-                  <button type="button" class="profile__edit-botton opacity-link"><img src={ProfileEditBotton} alt="кнопка редактирования"/></button>
+                  <button type="button" class="profile__edit-botton opacity-link" onClick={handleEditProfileClick}><img src={ProfileEditBotton} alt="кнопка редактирования"/></button>
                 </div>
                 <h2 class="profile__profession"></h2>
               </div>
-            <button type="button" class="profile__add-botton opacity-link"><img src={ProfileAddBotton} alt="кнопка добавления"/></button>
+            <button type="button" class="profile__add-botton opacity-link" onClick={handleAddPlaceClick}><img src={ProfileAddBotton} alt="кнопка добавления"/></button>
           </section>
           <section class="elements">
-
           </section>
-        </main>
-        <div class="popup" id="popupAutor">
+          <div class="popup" id="popupAutor">
           <div class="popup__container">
             <button type="button" class="popup__close opacity-link"><img src={PopupCloseIcon} alt="кнопка закрытия"/></button>
             <form class="popup__form" name="popup-profile" id="formAutor" novalidate>
@@ -40,7 +44,6 @@ function App() {
             </form>
           </div>
         </div>
-
         <div class="popup" id="popupCard">
           <div class="popup__container">
             <button type="button" class="popup__close opacity-link" id="closeCard"><img src={PopupCloseIcon} alt="кнопка закрытия"/></button>
@@ -70,10 +73,7 @@ function App() {
             </form>
           </div>
         </div>
-        <footer class="footer">
-          <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
-        </footer>
-      </div>
+
       <div class="popup" id="popupAvatar">
         <div class="popup__container">
           <button type="button" class="popup__close opacity-link" id="closeAvatar"><img src={PopupCloseIcon} alt="кнопка закрытия"/></button>
@@ -85,23 +85,8 @@ function App() {
           </form>
         </div>
       </div>
-      <template id="boxCards">
-        <div class="element" id="cardElement">
-          <img id="cardLink" class="element__image" src="#" alt="фото"/>
-          <div class="element__btn_delete">
-            <button id="bottonDel" class="element__btn opacity-link" type="button"><img src={BoxCardDeleteBotton} width="18" height="17" alt="Удалить"/></button>
-          </div>
-          <div class="element__info">
-            <h3 class="element__title" id="cardTitle"></h3>
-            <div class="element__likes">
-              <button id="likebutton" type="button" class="element__likes element__likes_like-btn"></button>
-              <p class="element__likes element__likes_like-count"></p>
-            </div>
-          </div>
-        </div>
-      </template>
-   </>
+        </main>
+        
   );
 }
-
-export default App;
+export default Main;
