@@ -9,8 +9,13 @@ function App() {
     <>
       <div class="page">
         <Header />
-        <Main />
+        <Main 
+        onEditProfile="handleEditProfileClick"
+        onAddPlace="handleAddPlaceClick"
+        onEditAvatar="handleEditAvatarClick"
+        />
         <Footer />
+
       <template id="boxCards">
         <div class="element" id="cardElement">
           <img id="cardLink" class="element__image" src="#" alt="фото"/>
