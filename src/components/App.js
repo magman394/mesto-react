@@ -3,6 +3,7 @@ import BoxCardDeleteBotton from '../images/delete.png';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
+import PopupWithForm from './PopupWithForm';
 
 function App() {
   return (
@@ -15,6 +16,9 @@ function App() {
         onEditAvatar="handleEditAvatarClick"
         />
         <Footer />
+        <PopupWithForm
+        onClose="closeAllPopups"
+        />
 
       <template id="boxCards">
         <div class="element" id="cardElement">

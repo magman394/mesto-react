@@ -35,6 +35,7 @@ class Main extends React.Component {
     document.querySelector('#popupCard').classList.add('popup_is-opened');
     }
   }
+
   render() {
     return (
         <main class="content">
@@ -51,23 +52,23 @@ class Main extends React.Component {
           </section>
           <section class="elements">
           </section>
-        <PopupWithForm isOpen="false" popupid="popupAutor" formid="formAutor" buttonid="saveAutor" title="Редактировать профиль" classtype="popup__title_color_black">
+        <PopupWithForm onClose="true" isOpen="false" popupid="popupAutor" formid="formAutor" buttonid="saveAutor" title="Редактировать профиль" classtype="popup__title_color_black" onClose="">
           <input name="firstName" id="firstName" type="text" class="popup__input" minlength="2" maxlength="40" required placeholder="Имя"/>
           <span id="firstName-error" class="popup__error"></span>
           <input name="lastName" id="lastName" type="text" class="popup__input" minlength="2" maxlength="200" required placeholder="Профессия"/>
           <span id="lastName-error" class="popup__error"></span>
         </PopupWithForm>
-        <PopupWithForm isOpen="false" popupid="popupCard" formid="formCards" buttonid="saveCard" title="Новое место" classtype="popup__title_color_black">
+        <PopupWithForm onClose="true" isOpen="false" popupid="popupCard" formid="formCards" buttonid="saveCard" title="Новое место" classtype="popup__title_color_black">
           <input name="name" type="text" class="popup__input" minlength="2" maxlength="30" required placeholder="Название" id="inputTitle"/>
           <span id="inputTitle-error" class="popup__error"></span>
           <input name="link" id="inputLink" type="url" class="popup__input" required placeholder="Ссылка на картинку"/>
           <span id="inputLink-error" class="popup__error"></span>
         </PopupWithForm>
-        <PopupWithForm isOpen="false" popupid="popupDelCard" formid="formDel" buttonid="deleteCard" title="Вы уверены?" classtype="popup__title_not_margin">
+        <PopupWithForm onClose="true" isOpen="false" popupid="popupDelCard" formid="formDel" buttonid="deleteCard" title="Вы уверены?" classtype="popup__title_not_margin">
           <input name="name" type="text" class="popup__input" minlength="2" maxlength="30" required placeholder="Название" id="inputTitle"/>
           <button id="deleteCard" type="submit" class="popup__submit popup__submit_mini_margin">Да</button>
         </PopupWithForm>
-        <PopupWithForm isOpen="false" popupid="popupAvatar" formid="closeAvatar" buttonid="saveAvatar" title="Обновить аватар" classtype="popup__title_not_margin">
+        <PopupWithForm onClose="true" isOpen="false" popupid="popupAvatar" formid="closeAvatar" buttonid="saveAvatar" title="Обновить аватар" classtype="popup__title_not_margin">
             <input name="link" id="AvatarLink" type="url" class="popup__input" required placeholder="Ссылка на картинку"/>
             <span id="AvatarLink-error" class="popup__error"></span>
         </PopupWithForm>
