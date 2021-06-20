@@ -2,9 +2,8 @@ import React from "react";
 import BoxCardDeleteBotton from '../images/delete.png';
 
 const Cards = (props) => {
-  console.log(props)
   return (
-    <template id="boxCards">
+    <div id="boxCards">
         <div key={props.id} className="element" id="cardElement">
           <img id="cardLink" className="element__image" src={props.link} alt="фото"/>
           <div className="element__btn_delete">
@@ -18,7 +17,7 @@ const Cards = (props) => {
             </div>
           </div>
         </div>
-        </template>
+     </div>
   );
 }
 
