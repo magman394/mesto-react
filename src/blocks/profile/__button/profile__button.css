@@ -1,4 +1,7 @@
-
+.profile__botton {
+  background-color: black;
+  border: 0px;
+}
 .profile__botton:hover {
 
   background-image: url("../../../images/pen.svg");

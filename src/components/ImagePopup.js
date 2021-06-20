@@ -1,9 +1,9 @@
 function ImagePopup() {
     return (
-        <div class="popup" id="popupImage">
-          <div class="popup__image-container">
-              <img class="popup__image" src="#" alt="фото"/>
-              <h2 class="popup__title" id="popupTtl"></h2>
+        <div className="popup" id="popupImage">
+          <div className="popup__image-container">
+              <img className="popup__image" src="#" alt="фото"/>
+              <h2 className="popup__title" id="popupTtl">фото</h2>
           </div>
         </div>
   );
