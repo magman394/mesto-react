@@ -22,6 +22,7 @@
 //   }
 //   export default PopupWithForm;
 
+
 import React from "react";
 import PopupCloseIcon from '../images/Close-Icon.svg';
 const PopupWithForm = ({popupid, formid, classtype, title, children, buttonid}) => {
