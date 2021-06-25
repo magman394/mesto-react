@@ -2,8 +2,8 @@ import React from "react";
 import ProfileEditBotton from '../images/edit-botton.svg';
 import ProfileAddBotton from '../images/add-botton.svg';
 import DefultAvatar from '../images/avatar-image.jpg';
-import ImagePopup from './ImagePopup';
-import Cards from './cards';
+
+import Card from './Card';
 import api from '../utils/API';
 
 function Main(props) {
@@ -12,7 +12,6 @@ function Main(props) {
     const [userDescription, setUserDescription] = React.useState('Мореплаватель')
     const [userAvatar, setUserAvatar] = React.useState(DefultAvatar)
   
-
 
   const userInfo = () => {
     api
@@ -72,13 +71,13 @@ function Main(props) {
 
             {cards.map((item) => {
               return (
-                <Cards key={item.id} {...item} />
+                <Card onCardClick={props.onCardClick} key={item.id} {...item} />
               )
             })}
 
           </section>
 
-        <ImagePopup />
+
         </main>
   );
 

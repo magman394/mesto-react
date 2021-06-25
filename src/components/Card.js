@@ -1,11 +1,14 @@
 import React from "react";
 import BoxCardDeleteBotton from '../images/delete.png';
 
-const Cards = (props) => {
+function Card(props) {
+  function handleClick() {
+  props.onCardClick({img: props.link, title: props.name});
+}  
   return (
     <div id="boxCards">
         <div key={props.id} className="element" id="cardElement">
-          <img id="cardLink" className="element__image" src={props.link} alt="фото"/>
+          <img id="cardLink" className="element__image" src={props.link} onClick={handleClick} alt="фото"/>
           <div className="element__btn_delete">
             <button id="bottonDel" className="element__btn_delete-active opacity-link" type="button"><img src={BoxCardDeleteBotton} width="18" height="17" alt="Удалить"/></button>
           </div>
@@ -21,4 +24,4 @@ const Cards = (props) => {
   );
 }
 
-export default Cards;
+export default Card;
