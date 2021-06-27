@@ -2,8 +2,8 @@
 export const bigImgclose = document.querySelector('.popup__close_image');
 
 export const popupImg = document.querySelector('.popup__image');
-export const popupTitle = document.querySelector('#popupTtl');
-
+export const popupTitle = document.querySelector('#popupTitle');
+export const newDate = new Date().getFullYear();
 export const saveAutor = document.querySelector('#saveAutor')
 export const saveCard = document.querySelector('#saveCard')
 export const saveAvatar = document.querySelector('#saveAvatar')

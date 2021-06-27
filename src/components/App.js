@@ -11,28 +11,27 @@ function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false)
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false)
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false)
-  const [selectedCard, setSelectedCard] = React.useState(false)
+  const [selectedCard, setSelectedCard] = React.useState({ selectedCard: null, img: null, title: null})
 
   const handleEditAvatarClick = () => {
-    setEditAvatarPopupOpen({ isEditAvatarPopupOpen: true });
+    setEditAvatarPopupOpen(true);
   }
   const handleEditProfileClick = () => {
-    setEditProfilePopupOpen({ isAddPlacePopupOpen: true });
+    setEditProfilePopupOpen(true);
   }
   const handleAddPlaceClick = () => {
-    setAddPlacePopupOpen({ isAddPlacePopupOpen: true });
+    setAddPlacePopupOpen(true);
   }
   const closeAllPopups = () => {
     setEditAvatarPopupOpen(false);
     setEditProfilePopupOpen(false);
     setAddPlacePopupOpen(false);
-    setSelectedCard(false)
+    setSelectedCard({ selectedCard: null, img: null, title: null})
   }
   const handleCardClick = (props) => {
-  setSelectedCard({ selectedCard: true, img: props.img, title: props.title})
+  setSelectedCard({ selectedCard: 'popup_is-opened', img: props.img, title: props.title})
 }
   return (
-    <>
       <div className="page">
         <Header />
         <Main 
@@ -58,9 +57,9 @@ function App() {
             <input name="link" id="AvatarLink" type="url" className="popup__input" required placeholder="Ссылка на картинку"/>
             <span id="AvatarLink-error" className="popup__error"></span>
         </PopupWithForm>
+        <PopupWithForm title="Вы уверены?" name="popupDelCard" buttonText="Да" />
         <ImagePopup  onClose={closeAllPopups} card={selectedCard} />
       </div>
-   </>
   );
 }
 
