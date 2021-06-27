@@ -4,7 +4,9 @@ import profileAddBotton from '../images/add-botton.svg';
 import defultAvatar from '../images/avatar-image.jpg';
 
 import Card from './cards';
+
 import Api from '../utils/api';
+
 
 function Main(props) {
 
