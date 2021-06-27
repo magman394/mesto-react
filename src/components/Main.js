@@ -5,7 +5,7 @@ import defultAvatar from '../images/avatar-image.jpg';
 
 import Card from './cards';
 
-import Api from '../utils/api';
+import api from '../utils/api';
 
 
 function Main(props) {
@@ -18,7 +18,7 @@ function Main(props) {
 
     
       React.useEffect(() => {
-        Api
+        api
         .getUserInfo()
         .then(response => {
           setUserName(response.name)
@@ -26,7 +26,7 @@ function Main(props) {
           setUserAvatar(response.avatar)
         }).catch((err) => alert(err));
 
-        Api
+        api
         .getAllTasks()
         .then(response => {
           const formattedCards = response.map((item) => {
