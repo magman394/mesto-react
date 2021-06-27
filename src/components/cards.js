@@ -6,7 +6,7 @@ function Card(props) {
   props.onCardClick({img: props.link, title: props.name});
 }  
   return (
-    <div id="boxCards">
+    <div className="elements__box" id="boxCards">
         <div key={props.id} className="element" id="cardElement">
           <img id="cardLink" className="element__image" src={props.link} onClick={handleClick} alt="фото"/>
           <div className="element__btn_delete">

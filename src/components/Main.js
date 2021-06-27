@@ -1,7 +1,7 @@
 import React from "react";
 import profileEditBotton from '../images/edit-botton.svg';
 import profileAddBotton from '../images/add-botton.svg';
-import defultAvatar from '../images/avatar-image.jpg';
+import defultLoading from '../images/line.gif';
 
 import Card from './cards';
 
@@ -10,9 +10,9 @@ import api from '../utils/api';
 
 function Main(props) {
 
-    const [userName, setUserName] = React.useState('Жак-Ив Кусто')
-    const [userDescription, setUserDescription] = React.useState('Мореплаватель')
-    const [userAvatar, setUserAvatar] = React.useState(defultAvatar)
+    const [userName, setUserName] = React.useState('Загрузка...')
+    const [userDescription, setUserDescription] = React.useState('Загрузка...')
+    const [userAvatar, setUserAvatar] = React.useState(defultLoading)
     const {onEditAvatar, onAddPlace, onEditProfile, onCardClick} = props;
     const [cards, setCards] = React.useState([])
 
@@ -40,7 +40,7 @@ function Main(props) {
             )
           })
           setCards(formattedCards)
-        }).catch((err) => alert(err));
+        }).catch((err) => alert(err))
         }, [])
 
 
