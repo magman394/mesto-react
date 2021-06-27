@@ -1,4 +1,4 @@
-class Api {
+class API {
   constructor({url, token}) {
     this.url = url
     this.token = token;
@@ -21,7 +21,7 @@ class Api {
 }
 
 
-const api = new Api({
+const Api = new API({
   url: 'https://mesto.nomoreparties.co/v1/cohort-24/',
   token: {
     authorization: 'b94e78d1-b2d6-4481-aa74-fc7e4dc8c239',
@@ -29,5 +29,6 @@ const api = new Api({
   }
  });
 
-export default api;
+export default Api;
+
 
