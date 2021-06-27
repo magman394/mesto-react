@@ -3,8 +3,8 @@ import profileEditBotton from '../images/edit-botton.svg';
 import profileAddBotton from '../images/add-botton.svg';
 import defultAvatar from '../images/avatar-image.jpg';
 
-import Card from './Card';
-import api from '../utils/API';
+import Card from './cards';
+import Api from '../utils/api';
 
 function Main(props) {
 
@@ -14,41 +14,31 @@ function Main(props) {
     const {onEditAvatar, onAddPlace, onEditProfile, onCardClick} = props;
     const [cards, setCards] = React.useState([])
 
-  const userInfo = () => {
-    api
-    .getUserInfo()
-    .then(response => {
-      setUserName(response.name)
-      setUserDescription(response.about)
-      setUserAvatar(response.avatar)
-    }).catch((err) => alert(err));
-  }
-  React.useEffect(() => {
-      userInfo()
-    }, [])
+    
+      React.useEffect(() => {
+        Api
+        .getUserInfo()
+        .then(response => {
+          setUserName(response.name)
+          setUserDescription(response.about)
+          setUserAvatar(response.avatar)
+        }).catch((err) => alert(err));
 
-
-
-    const cardInfo = () => {
-        api
+        Api
         .getAllTasks()
         .then(response => {
           const formattedCards = response.map((item) => {
             return (
-{              id: item._id,
-              name: item.name,
-              link: item.link,
-              likes: item.likes.length}
+              { 
+                id: item._id,
+                name: item.name,
+                link: item.link,
+                likes: item.likes.length
+              }
             )
-
           })
-
           setCards(formattedCards)
-      })
-    }
-    
-      React.useEffect(() => {
-            cardInfo()
+        }).catch((err) => alert(err));
         }, [])
 
 
