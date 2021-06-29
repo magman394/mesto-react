@@ -11,7 +11,8 @@ function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false)
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false)
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false)
-  const [selectedCard, setSelectedCard] = React.useState({ selectedCard: null, img: null, title: null})
+  const [isEditImagePopupOpen, setEditImagePopupOpen] = React.useState(false)
+  const [selectedCard, setSelectedCard] = React.useState({ img: null, title: null})
 
   const handleEditAvatarClick = () => {
     setEditAvatarPopupOpen(true);
@@ -26,10 +27,12 @@ function App() {
     setEditAvatarPopupOpen(false);
     setEditProfilePopupOpen(false);
     setAddPlacePopupOpen(false);
-    setSelectedCard({ selectedCard: null, img: null, title: null})
+    setEditImagePopupOpen(false);
+    setSelectedCard({ img: null, title: null})
   }
   const handleCardClick = (props) => {
-  setSelectedCard({ selectedCard: 'popup_is-opened', img: props.img, title: props.title})
+  setSelectedCard({ img: props.img, title: props.title})
+  setEditImagePopupOpen(true);
 }
   return (
       <div className="page">
@@ -58,7 +61,7 @@ function App() {
             <span id="AvatarLink-error" className="popup__error"></span>
         </PopupWithForm>
         <PopupWithForm title="Вы уверены?" name="popup__form-avatar" buttonText="Да" />
-        <ImagePopup name="popupImage" onClose={closeAllPopups} card={selectedCard} />
+        <ImagePopup name="popupImage" onClose={closeAllPopups} card={selectedCard} isOpen={isEditImagePopupOpen} />
       </div>
   );
 }

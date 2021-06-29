@@ -3,17 +3,15 @@ import profileEditBotton from '../images/edit-botton.svg';
 import profileAddBotton from '../images/add-botton.svg';
 import defultLoading from '../images/line.gif';
 
-import Card from './cards';
-
+import Card from './Card';
 import api from '../utils/api';
 
 
-function Main(props) {
+function Main({onEditAvatar, onAddPlace, onEditProfile, onCardClick}) {
 
     const [userName, setUserName] = React.useState('Загрузка...')
     const [userDescription, setUserDescription] = React.useState('Загрузка...')
     const [userAvatar, setUserAvatar] = React.useState(defultLoading)
-    const {onEditAvatar, onAddPlace, onEditProfile, onCardClick} = props;
     const [cards, setCards] = React.useState([])
 
     
