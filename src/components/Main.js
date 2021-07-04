@@ -1,29 +1,18 @@
 import React from "react";
 import profileEditBotton from '../images/edit-botton.svg';
 import profileAddBotton from '../images/add-botton.svg';
-import defultLoading from '../images/line.gif';
+import {CurrentUserContext} from '../contexts/CurrentUserContext';
 
 import Card from './Card';
 import api from '../utils/api';
 
 
 function Main({onEditAvatar, onAddPlace, onEditProfile, onCardClick}) {
-
-    const [userName, setUserName] = React.useState('Загрузка...')
-    const [userDescription, setUserDescription] = React.useState('Загрузка...')
-    const [userAvatar, setUserAvatar] = React.useState(defultLoading)
+    const userInfo = React.useContext(CurrentUserContext);
     const [cards, setCards] = React.useState([])
 
     
       React.useEffect(() => {
-        api
-        .getUserInfo()
-        .then(response => {
-          setUserName(response.name)
-          setUserDescription(response.about)
-          setUserAvatar(response.avatar)
-        }).catch((err) => alert(err));
-
         api
         .getAllTasks()
         .then(response => {
@@ -45,13 +34,13 @@ function Main({onEditAvatar, onAddPlace, onEditProfile, onCardClick}) {
     return (
         <main className="content">
           <section className="profile">
-            <button className="profile__botton" type="button" onClick={onEditAvatar}><img className="profile__avatar opacity-link opacity-link_avatar" src={userAvatar} alt="аватарка"/></button>
+            <button className="profile__botton" type="button" onClick={onEditAvatar}><img className="profile__avatar opacity-link opacity-link_avatar" src={userInfo.avatar} alt="аватарка"/></button>
               <div className="profile__profile-info">
                 <div className="profile__edit-name">
-                  <h1 className="profile__name">{userName}</h1>
+                  <h1 className="profile__name">{userInfo.name}</h1>
                   <button type="button" className="profile__edit-botton opacity-link" onClick={onEditProfile}><img src={profileEditBotton} alt="кнопка редактирования"/></button>
                 </div>
-                <h2 className="profile__profession">{userDescription}</h2>
+                <h2 className="profile__profession">{userInfo.about}</h2>
               </div>
             <button type="button" className="profile__add-botton opacity-link" onClick={onAddPlace}><img src={profileAddBotton} alt="кнопка добавления"/></button>
           </section>

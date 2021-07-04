@@ -4,15 +4,26 @@ import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
-
+import api from '../utils/api';
+import {CurrentUserContext, defaultUser} from '../contexts/CurrentUserContext';
 
 function App() {
+
 
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false)
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false)
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false)
   const [isEditImagePopupOpen, setEditImagePopupOpen] = React.useState(false)
   const [selectedCard, setSelectedCard] = React.useState({ img: null, title: null})
+  const [currentUser, setCurrentUser] = React.useState(defaultUser)
+
+  React.useEffect(() => {
+    api
+    .getUserInfo()
+    .then(response => {
+      setCurrentUser(response)
+    }).catch((err) => alert(err));
+    }, [])
 
   const handleEditAvatarClick = () => {
     setEditAvatarPopupOpen(true);
@@ -35,7 +46,8 @@ function App() {
   setEditImagePopupOpen(true);
 }
   return (
-      <div className="page">
+    <div className="page">
+      <CurrentUserContext.Provider value={currentUser}>
         <Header />
         <Main 
         onEditProfile={handleEditProfileClick}
@@ -62,7 +74,8 @@ function App() {
         </PopupWithForm>
         <PopupWithForm title="Вы уверены?" name="popup__form-avatar" buttonText="Да" />
         <ImagePopup name="popupImage" onClose={closeAllPopups} card={selectedCard} isOpen={isEditImagePopupOpen} />
-      </div>
+      </CurrentUserContext.Provider>
+    </div>
   );
 }
 
