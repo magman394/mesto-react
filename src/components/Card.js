@@ -2,13 +2,13 @@ import React from "react";
 import boxCardDeleteBotton from '../images/delete.png';
 
 
-function Card({onCardClick, deleteButton, link, name, likes, likeButton, onCardLike, _id}) {
+function Card({onCardClick, deleteButton, link, name, likes, likeButton, onCardLike}) {
   function handleClick() {
     onCardClick({img: link, title: name});
     
   } 
   function handleLikeClick() {
-    onCardLike(_id);
+    onCardLike(likes);
     
   } 
   

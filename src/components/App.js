@@ -6,7 +6,7 @@ import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import api from '../utils/api';
 import {CurrentUserContext, defaultUser} from '../contexts/CurrentUserContext';
-import {CurrentCardContext, defaultCard} from '../contexts/CurrentCardContext';
+import {CurrentCardContext} from '../contexts/CurrentCardContext';
 function App() {
 
 
@@ -65,6 +65,7 @@ function App() {
         onAddPlace={handleAddPlaceClick}
         onEditAvatar={handleEditAvatarClick}
         onCardClick={handleCardClick}
+        setCards={setCards}
         />
         </CurrentCardContext.Provider>
         <Footer />

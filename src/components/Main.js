@@ -7,7 +7,7 @@ import Card from './Card';
 import api from '../utils/api';
 
 
-function Main({onEditAvatar, onAddPlace, onEditProfile, onCardClick}) {
+function Main({onEditAvatar, onAddPlace, onEditProfile, onCardClick, setCards}) {
     const userInfo = React.useContext(CurrentUserContext);
     const cardInfo = React.useContext(CurrentCardContext);
 
@@ -37,12 +37,11 @@ function Main({onEditAvatar, onAddPlace, onEditProfile, onCardClick}) {
               );   
               const isLiked = item.likes.some(i => i._id === userInfo._id);
               const cardLikeButtonClassName = `${isLiked ? 'element__likes_active element__likes_like-btn' : 'element__likes element__likes_like-btn'}`; 
-              function handleCardLike(card) {
-                // Снова проверяем, есть ли уже лайк на этой карточке
-                const isLiked = card.likes.some(i => i._id === userInfo._id);
-                // Отправляем запрос в API и получаем обновлённые данные карточки
-                api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-                  setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+              function handleCardLike(likes) {
+
+                const isLiked = likes.some(i => i._id === userInfo._id);
+                api.changeLikeCardStatus(item._id, !isLiked).then((newCard) => {
+                  setCards((state) => state.map((c) => c._id === item._id ? newCard : c));
                 });
             } 
             return (

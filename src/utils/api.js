@@ -18,9 +18,9 @@ class Api  {
     })
     .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
   }
-  changeLikeCardStatus(id, tru) {
-    console.log(tru)
-    if(tru === true) {
+  changeLikeCardStatus(id, check) {
+
+    if(check === true) {
 
     return fetch(`${this.url}cards/likes/${id}`,  {
       method: "PUT",

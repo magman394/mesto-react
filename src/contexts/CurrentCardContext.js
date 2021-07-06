@@ -14,6 +14,7 @@ export const defaultCard = {
     link: 
         'Загрузка...',
     likes:
-        {length: '0'}
+        {length: '0',
+        id: '0'}
     }; 
 
