@@ -18,6 +18,27 @@ class Api  {
     })
     .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
   }
+  changeLikeCardStatus(id, tru) {
+    console.log(tru)
+    if(tru === true) {
+
+    return fetch(`${this.url}cards/likes/${id}`,  {
+      method: "PUT",
+      headers: 
+      this.token
+    })
+    .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+  } else {
+    return fetch(`${this.url}cards/likes/${id}`,  {
+      method: "DELETE",
+      headers: 
+      this.token
+    })
+    .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+  }
+}
+
+
 }
 
 

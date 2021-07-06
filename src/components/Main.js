@@ -2,34 +2,18 @@ import React from "react";
 import profileEditBotton from '../images/edit-botton.svg';
 import profileAddBotton from '../images/add-botton.svg';
 import {CurrentUserContext} from '../contexts/CurrentUserContext';
-
+import {CurrentCardContext} from '../contexts/CurrentCardContext';
 import Card from './Card';
 import api from '../utils/api';
 
 
 function Main({onEditAvatar, onAddPlace, onEditProfile, onCardClick}) {
     const userInfo = React.useContext(CurrentUserContext);
-    const [cards, setCards] = React.useState([])
+    const cardInfo = React.useContext(CurrentCardContext);
 
-    
-      React.useEffect(() => {
-        api
-        .getAllTasks()
-        .then(response => {
-          const formattedCards = response.map((item) => {
-            return (
-              { 
-                id: item._id,
-                name: item.name,
-                link: item.link,
-                likes: item.likes.length
-              }
-            )
-          })
-          setCards(formattedCards)
-        }).catch((err) => alert(err))
-        }, [])
 
+
+   
 
     return (
         <main className="content">
@@ -44,14 +28,27 @@ function Main({onEditAvatar, onAddPlace, onEditProfile, onCardClick}) {
               </div>
             <button type="button" className="profile__add-botton opacity-link" onClick={onAddPlace}><img src={profileAddBotton} alt="кнопка добавления"/></button>
           </section>
+
           <section className="elements">
-
-            {cards.map((item) => {
-              return (
-                <Card onCardClick={onCardClick} key={item.id} {...item} />
-              )
-            })}
-
+            {cardInfo.map((item) => {
+              const isOwn = item.owner._id === userInfo._id;
+              const cardDeleteButtonClassName = (
+                `${isOwn ? 'element__btn_delete-active opacity-link' : 'element__btn opacity-link'}`
+              );   
+              const isLiked = item.likes.some(i => i._id === userInfo._id);
+              const cardLikeButtonClassName = `${isLiked ? 'element__likes_active element__likes_like-btn' : 'element__likes element__likes_like-btn'}`; 
+              function handleCardLike(card) {
+                // Снова проверяем, есть ли уже лайк на этой карточке
+                const isLiked = card.likes.some(i => i._id === userInfo._id);
+                // Отправляем запрос в API и получаем обновлённые данные карточки
+                api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+                  setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+                });
+            } 
+            return (
+              <Card onCardClick={onCardClick} key={item._id} {...item} deleteButton={cardDeleteButtonClassName} likeButton={cardLikeButtonClassName} onCardLike={handleCardLike} />
+            )
+                  })}
           </section>
 
 

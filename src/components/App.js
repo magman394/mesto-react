@@ -6,7 +6,7 @@ import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import api from '../utils/api';
 import {CurrentUserContext, defaultUser} from '../contexts/CurrentUserContext';
-
+import {CurrentCardContext, defaultCard} from '../contexts/CurrentCardContext';
 function App() {
 
 
@@ -15,14 +15,24 @@ function App() {
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false)
   const [isEditImagePopupOpen, setEditImagePopupOpen] = React.useState(false)
   const [selectedCard, setSelectedCard] = React.useState({ img: null, title: null})
+  
   const [currentUser, setCurrentUser] = React.useState(defaultUser)
+  const [cards, setCards] = React.useState([])
 
+
+
+  
   React.useEffect(() => {
     api
     .getUserInfo()
     .then(response => {
       setCurrentUser(response)
     }).catch((err) => alert(err));
+    api
+    .getAllTasks()
+    .then(response => {
+      setCards(response)
+    }).catch((err) => alert(err))
     }, [])
 
   const handleEditAvatarClick = () => {
@@ -49,12 +59,14 @@ function App() {
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
         <Header />
+        <CurrentCardContext.Provider value={cards}>
         <Main 
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
         onEditAvatar={handleEditAvatarClick}
         onCardClick={handleCardClick}
         />
+        </CurrentCardContext.Provider>
         <Footer />
         <PopupWithForm onClose={closeAllPopups} isOpen={isEditProfilePopupOpen} title="Редактировать профиль" name="popupAutor">
           <input name="firstName" id="firstName" type="text" className="popup__input" minLength="2" maxLength="40" required placeholder="Имя"/>
