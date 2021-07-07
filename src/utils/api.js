@@ -37,7 +37,14 @@ class Api  {
     .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
   }
 }
-
+  delmyCard(id) {
+    return fetch(`${this.url}cards/${id}`,  {
+      method: "DELETE",
+      headers: 
+      this.token
+    })
+    .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+  }
 
 }
 

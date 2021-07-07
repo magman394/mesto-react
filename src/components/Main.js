@@ -31,6 +31,12 @@ function Main({onEditAvatar, onAddPlace, onEditProfile, onCardClick, setCards}) 
 
           <section className="elements">
             {cardInfo.map((item) => {
+              function handleCardDelete(_id) {
+                api.delmyCard(_id).then(() => {
+                  setCards((state) => state.map((c) => c).filter(state => state._id !== _id));
+              });
+                          
+                        } 
               const isOwn = item.owner._id === userInfo._id;
               const cardDeleteButtonClassName = (
                 `${isOwn ? 'element__btn_delete-active opacity-link' : 'element__btn opacity-link'}`
@@ -42,10 +48,12 @@ function Main({onEditAvatar, onAddPlace, onEditProfile, onCardClick, setCards}) 
                 const isLiked = likes.some(i => i._id === userInfo._id);
                 api.changeLikeCardStatus(item._id, !isLiked).then((newCard) => {
                   setCards((state) => state.map((c) => c._id === item._id ? newCard : c));
-                });
+              });
+              
             } 
+
             return (
-              <Card onCardClick={onCardClick} key={item._id} {...item} deleteButton={cardDeleteButtonClassName} likeButton={cardLikeButtonClassName} onCardLike={handleCardLike} />
+              <Card onCardClick={onCardClick} key={item._id} {...item} deleteButton={cardDeleteButtonClassName} likeButton={cardLikeButtonClassName} onCardLike={handleCardLike} onCardDelete={handleCardDelete} />
             )
                   })}
           </section>
