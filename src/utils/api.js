@@ -37,6 +37,14 @@ class Api  {
     .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
   }
 }
+setUserInfo(onUpdateUser) {
+  
+    return fetch(`${this.url}users/me`, {
+      method: "PATCH",
+      headers: this.token,
+      body: JSON.stringify(onUpdateUser) }).then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+  }
+
   delmyCard(id) {
     return fetch(`${this.url}cards/${id}`,  {
       method: "DELETE",

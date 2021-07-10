@@ -7,6 +7,7 @@ import ImagePopup from './ImagePopup';
 import api from '../utils/api';
 import {CurrentUserContext, defaultUser} from '../contexts/CurrentUserContext';
 import {CurrentCardContext} from '../contexts/CurrentCardContext';
+import EditProfilePopup from './EditProfilePopup';
 function App() {
 
 
@@ -52,9 +53,17 @@ function App() {
     setSelectedCard({ img: null, title: null})
   }
   const handleCardClick = (props) => {
-  setSelectedCard({ img: props.img, title: props.title})
-  setEditImagePopupOpen(true);
-}
+    setSelectedCard({ img: props.img, title: props.title})
+    setEditImagePopupOpen(true);
+  }
+  const handleUpdateUser = (onUpdateUser) => {
+    api
+    .setUserInfo(onUpdateUser)
+    .then(response => {
+      setCurrentUser(response)
+    }).catch((err) => alert(err));
+    setEditProfilePopupOpen(false);
+  }
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
@@ -69,12 +78,7 @@ function App() {
         />
         </CurrentCardContext.Provider>
         <Footer />
-        <PopupWithForm onClose={closeAllPopups} isOpen={isEditProfilePopupOpen} title="Редактировать профиль" name="popupAutor">
-          <input name="firstName" id="firstName" type="text" className="popup__input" minLength="2" maxLength="40" required placeholder="Имя"/>
-          <span id="firstName-error" className="popup__error"></span>
-          <input name="lastName" id="lastName" type="text" className="popup__input" minLength="2" maxLength="200" required placeholder="Профессия"/>
-          <span id="lastName-error" className="popup__error"></span>
-        </PopupWithForm>
+        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
         <PopupWithForm onClose={closeAllPopups} isOpen={isAddPlacePopupOpen} title="Новое место" name="popupCard">
           <input name="name" type="text" className="popup__input" minLength="2" maxLength="30" required placeholder="Название" id="inputTitle"/>
           <span id="inputTitle-error" className="popup__error"></span>
