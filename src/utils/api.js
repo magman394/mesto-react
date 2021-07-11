@@ -18,6 +18,54 @@ class Api  {
     })
     .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
   }
+  changeLikeCardStatus(id, check) {
+
+    if(check === true) {
+
+    return fetch(`${this.url}cards/likes/${id}`,  {
+      method: "PUT",
+      headers: 
+      this.token
+    })
+    .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+  } else {
+    return fetch(`${this.url}cards/likes/${id}`,  {
+      method: "DELETE",
+      headers: 
+      this.token
+    })
+    .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+  }
+}
+  setUserInfo(onUpdateUser) {
+    return fetch(`${this.url}users/me`, {
+      method: "PATCH",
+      headers: this.token,
+      body: JSON.stringify(onUpdateUser) }).then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+  }
+  setUserAvatar(profileAvatar) {
+    console.log(profileAvatar)
+    return fetch(`${this.url}users/me/avatar`, {
+      method: "PATCH",
+      headers: this.token,
+      body: JSON.stringify(profileAvatar)}).then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+  }
+  delmyCard(id) {
+    return fetch(`${this.url}cards/${id}`,  {
+      method: "DELETE",
+      headers: 
+      this.token
+    })
+    .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+  }
+  setAddPlase(onUpdateCard) {
+    console.log(onUpdateCard)
+    return fetch(`${this.url}cards/`, {
+      method: "POST",
+      headers: this.token,
+      body: JSON.stringify(onUpdateCard)}).then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+  }
+
 }
 
 

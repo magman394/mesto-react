@@ -1,3 +1,4 @@
+import React from "react";
 import { newDate } from "../utils/constants";
 function Footer() {
     return (

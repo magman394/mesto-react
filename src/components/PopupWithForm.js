@@ -1,6 +1,7 @@
 import React from "react";
 import PopupCloseIcon from '../images/Close-Icon.svg';
-const PopupWithForm = ({ name, title, children, isOpen, onClose}) => {
+const PopupWithForm = ({ name, title, children, isOpen, onClose, onSubmit}) => {
+
     return (
         <div className={`popup${isOpen ? ' popup_is-opened' : ''}`} name={name}>
           <div className="popup__container">
@@ -8,7 +9,7 @@ const PopupWithForm = ({ name, title, children, isOpen, onClose}) => {
             <form className="popup__title popup__title_not_margin" noValidate>
               <h2 className="popup__title">{title}</h2>
               {children}
-              <button type="submit" className="popup__submit" >Сохранить</button>
+              <button onClick={onSubmit} type="submit" className="popup__submit">Сохранить</button>
             </form>
           </div>
         </div>

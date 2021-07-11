@@ -1,70 +1,36 @@
 import React from "react";
 import profileEditBotton from '../images/edit-botton.svg';
 import profileAddBotton from '../images/add-botton.svg';
-import defultAvatar from '../images/avatar-image.jpg';
-
-import Card from './cards';
-
-import api from '../utils/api';
+import {CurrentUserContext} from '../contexts/CurrentUserContext';
+import Card from './Card';
 
 
-function Main(props) {
-
-    const [userName, setUserName] = React.useState('Жак-Ив Кусто')
-    const [userDescription, setUserDescription] = React.useState('Мореплаватель')
-    const [userAvatar, setUserAvatar] = React.useState(defultAvatar)
-    const {onEditAvatar, onAddPlace, onEditProfile, onCardClick} = props;
-    const [cards, setCards] = React.useState([])
-
-    
-      React.useEffect(() => {
-        api
-        .getUserInfo()
-        .then(response => {
-          setUserName(response.name)
-          setUserDescription(response.about)
-          setUserAvatar(response.avatar)
-        }).catch((err) => alert(err));
-
-        api
-        .getAllTasks()
-        .then(response => {
-          const formattedCards = response.map((item) => {
-            return (
-              { 
-                id: item._id,
-                name: item.name,
-                link: item.link,
-                likes: item.likes.length
-              }
-            )
-          })
-          setCards(formattedCards)
-        }).catch((err) => alert(err));
-        }, [])
+function Main({onEditAvatar, onAddPlace, onEditProfile, onCardClick, cards, onCardLike, onCardDelete}) {
+    const userInfo = React.useContext(CurrentUserContext);
 
 
     return (
         <main className="content">
           <section className="profile">
-            <button className="profile__botton" type="button" onClick={onEditAvatar}><img className="profile__avatar opacity-link opacity-link_avatar" src={userAvatar} alt="аватарка"/></button>
+            <button className="profile__botton" type="button" onClick={onEditAvatar}><img className="profile__avatar opacity-link opacity-link_avatar" src={userInfo.avatar} alt="аватарка"/></button>
               <div className="profile__profile-info">
                 <div className="profile__edit-name">
-                  <h1 className="profile__name">{userName}</h1>
+                  <h1 className="profile__name">{userInfo.name}</h1>
                   <button type="button" className="profile__edit-botton opacity-link" onClick={onEditProfile}><img src={profileEditBotton} alt="кнопка редактирования"/></button>
                 </div>
-                <h2 className="profile__profession">{userDescription}</h2>
+                <h2 className="profile__profession">{userInfo.about}</h2>
               </div>
             <button type="button" className="profile__add-botton opacity-link" onClick={onAddPlace}><img src={profileAddBotton} alt="кнопка добавления"/></button>
           </section>
+
           <section className="elements">
 
             {cards.map((item) => {
-              return (
-                <Card onCardClick={onCardClick} key={item.id} {...item} />
-              )
-            })}
 
+              return (
+                <Card onCardClick={onCardClick} key={item._id} {...item}  onCardLike={onCardLike} onCardDelete={onCardDelete} />
+              )
+                    })}
           </section>
 
 
@@ -73,3 +39,67 @@ function Main(props) {
 
 }
 export default Main;
+
+// import React from "react";
+// import profileEditBotton from '../images/edit-botton.svg';
+// import profileAddBotton from '../images/add-botton.svg';
+// import {CurrentUserContext} from '../contexts/CurrentUserContext';
+// import {CurrentCardContext} from '../contexts/CurrentCardContext';
+// import Card from './Card';
+// import api from '../utils/api';
+
+
+// function Main({onEditAvatar, onAddPlace, onEditProfile, onCardClick, setCards}) {
+//     const userInfo = React.useContext(CurrentUserContext);
+//     const cardInfo = React.useContext(CurrentCardContext);
+
+//     return (
+//         <main className="content">
+//           <section className="profile">
+//             <button className="profile__botton" type="button" onClick={onEditAvatar}><img className="profile__avatar opacity-link opacity-link_avatar" src={userInfo.avatar} alt="аватарка"/></button>
+//               <div className="profile__profile-info">
+//                 <div className="profile__edit-name">
+//                   <h1 className="profile__name">{userInfo.name}</h1>
+//                   <button type="button" className="profile__edit-botton opacity-link" onClick={onEditProfile}><img src={profileEditBotton} alt="кнопка редактирования"/></button>
+//                 </div>
+//                 <h2 className="profile__profession">{userInfo.about}</h2>
+//               </div>
+//             <button type="button" className="profile__add-botton opacity-link" onClick={onAddPlace}><img src={profileAddBotton} alt="кнопка добавления"/></button>
+//           </section>
+
+//           <section className="elements">
+
+//             {cardInfo.map((item) => {
+//               function handleCardDelete(_id) {
+//                 api.delmyCard(_id).then(() => {
+//                   setCards((state) => state.map((c) => c).filter(state => state._id !== _id));
+//               });   
+//               } 
+              
+//               const isOwn = item.owner._id === userInfo._id;
+//               const cardDeleteButtonClassName = (
+//                 `${isOwn ? 'element__btn_delete-active opacity-link' : 'element__btn opacity-link'}`
+//               );   
+
+//               const isLiked = item.likes.some(i => i._id === userInfo._id);
+//               const cardLikeButtonClassName = `${isLiked ? 'element__likes_active element__likes_like-btn' : 'element__likes element__likes_like-btn'}`; 
+
+//               function handleCardLike(likes) {
+//                 const isLiked = likes.some(i => i._id === userInfo._id);
+//                 api.changeLikeCardStatus(item._id, !isLiked).then((newCard) => {
+//                   setCards((state) => state.map((c) => c._id === item._id ? newCard : c));
+//               });
+//               } 
+
+//             return (
+//               <Card onCardClick={onCardClick} key={item._id} {...item} deleteButton={cardDeleteButtonClassName} likeButton={cardLikeButtonClassName} onCardLike={handleCardLike} onCardDelete={handleCardDelete} />
+//             )
+//                   })}
+//           </section>
+
+
+//         </main>
+//   );
+
+// }
+// export default Main;
