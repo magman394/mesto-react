@@ -48,7 +48,7 @@ class Api  {
     return fetch(`${this.url}users/me/avatar`, {
       method: "PATCH",
       headers: this.token,
-      body: JSON.stringify(profileAvatar) }).then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      body: JSON.stringify(profileAvatar)}).then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
   }
   delmyCard(id) {
     return fetch(`${this.url}cards/${id}`,  {
@@ -57,6 +57,13 @@ class Api  {
       this.token
     })
     .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+  }
+  setAddPlase(onUpdateCard) {
+    console.log(onUpdateCard)
+    return fetch(`${this.url}cards/`, {
+      method: "POST",
+      headers: this.token,
+      body: JSON.stringify(onUpdateCard)}).then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
   }
 
 }
