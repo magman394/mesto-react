@@ -44,7 +44,6 @@ class Api  {
       body: JSON.stringify(onUpdateUser) }).then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
   }
   setUserAvatar(profileAvatar) {
-    console.log(profileAvatar)
     return fetch(`${this.url}users/me/avatar`, {
       method: "PATCH",
       headers: this.token,
@@ -59,7 +58,6 @@ class Api  {
     .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
   }
   setAddPlase(onUpdateCard) {
-    console.log(onUpdateCard)
     return fetch(`${this.url}cards/`, {
       method: "POST",
       headers: this.token,
