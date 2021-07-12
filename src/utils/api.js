@@ -4,19 +4,23 @@ class Api  {
     this.token = token;
   }
 
+  getAllPromise() {
+    return Promise.all([this.getUserInfo(), this.getCards()]);
+  }
+
   getUserInfo() {
     return fetch(`${this.url}users/me`, {
       headers: 
         this.token
     })
-    .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+    .then(res => this._getResponseData(res))
   }
   getCards() {
     return fetch(`${this.url}cards`, {
       headers: 
         this.token
     })
-    .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+    .then(res => this._getResponseData(res))
   }
   changeLikeCardStatus(id, check) {
 
@@ -27,27 +31,27 @@ class Api  {
       headers: 
       this.token
     })
-    .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+    .then(res => this._getResponseData(res))
   } else {
     return fetch(`${this.url}cards/likes/${id}`,  {
       method: "DELETE",
       headers: 
       this.token
     })
-    .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+    .then(res => this._getResponseData(res))
   }
 }
   setUserInfo(onUpdateUser) {
     return fetch(`${this.url}users/me`, {
       method: "PATCH",
       headers: this.token,
-      body: JSON.stringify(onUpdateUser) }).then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      body: JSON.stringify(onUpdateUser) }).then(res => this._getResponseData(res))
   }
   setUserAvatar(profileAvatar) {
     return fetch(`${this.url}users/me/avatar`, {
       method: "PATCH",
       headers: this.token,
-      body: JSON.stringify(profileAvatar)}).then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      body: JSON.stringify(profileAvatar)}).then(res => this._getResponseData(res))
   }
   delmyCard(id) {
     return fetch(`${this.url}cards/${id}`,  {
@@ -55,15 +59,20 @@ class Api  {
       headers: 
       this.token
     })
-    .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+    .then(res => this._getResponseData(res))
   }
   setAddPlase(onUpdateCard) {
     return fetch(`${this.url}cards/`, {
       method: "POST",
       headers: this.token,
-      body: JSON.stringify(onUpdateCard)}).then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      body: JSON.stringify(onUpdateCard)}).then(res => this._getResponseData(res))
   }
-
+  _getResponseData(res) {
+    if (!res.ok) {
+        return Promise.reject(`Ошибка: ${res.status}`);
+    }
+    return res.json();
+  }
 }
 
 

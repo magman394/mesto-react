@@ -16,25 +16,17 @@ function App() {
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false)
   const [isEditImagePopupOpen, setEditImagePopupOpen] = React.useState(false)
   const [selectedCard, setSelectedCard] = React.useState({ img: null, title: null})
-  
   const [currentUser, setCurrentUser] = React.useState(defaultUser)
   const [cards, setCards] = React.useState([])
 
-
-
-  
   React.useEffect(() => {
-    api
-    .getUserInfo()
-    .then(response => {
-      setCurrentUser(response)
+    api.getAllPromise().then((arg) => {
+        const [getUserInfo, getCards] = arg;
+        
+        setCurrentUser(getUserInfo);
+        setCards(getCards);
     }).catch((err) => alert(err));
-    api
-    .getCards()
-    .then(response => {
-      setCards(response)
-    }).catch((err) => alert(err))
-    }, [])
+  }, [])
 
   const handleEditAvatarClick = () => {
     setEditAvatarPopupOpen(true);

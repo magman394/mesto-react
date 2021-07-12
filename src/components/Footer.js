@@ -1,9 +1,9 @@
 import React from "react";
-import { newDate } from "../utils/constants";
+import { currentYear } from "../utils/constants";
 function Footer() {
     return (
         <footer className="footer">
-          <p className="footer__copyright">&copy; {newDate} Mesto Russia</p>
+          <p className="footer__copyright">&copy; {currentYear} Mesto Russia</p>
         </footer>
   );
 }
