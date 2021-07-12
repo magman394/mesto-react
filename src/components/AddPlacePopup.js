@@ -2,7 +2,6 @@ import React from "react";
 import PopupWithForm from './PopupWithForm';
 
 function AddPlacePopup({isOpen, onClose, onUpdateCard}) {
-  const buttonText = 'Сохранить';
   const [link, setLink] = React.useState('');
   const [name, setName] = React.useState('');
 
@@ -29,7 +28,7 @@ function AddPlacePopup({isOpen, onClose, onUpdateCard}) {
 
 
     return (
-      <PopupWithForm buttonText={buttonText} onClose={onClose} isOpen={isOpen} title="Новое место" name="popupCard" onSubmit={handleSubmit} >
+      <PopupWithForm buttonText="Сохранить" onClose={onClose} isOpen={isOpen} title="Новое место" name="popupCard" onSubmit={handleSubmit} >
         <input value={name} onChange={handleChangeTitle}  type="text" className="popup__input" minLength="2" maxLength="30" required placeholder="Название" id="inputTitle"/>
         <span id="inputTitle-error" className="popup__error"></span>
         <input value={link} onChange={handleChangeLink}  id="inputLink" type="url" className="popup__input" required placeholder="Ссылка на картинку"/>
