@@ -30,7 +30,7 @@ function App() {
       setCurrentUser(response)
     }).catch((err) => alert(err));
     api
-    .getAllTasks()
+    .getCards()
     .then(response => {
       setCards(response)
     }).catch((err) => alert(err))
@@ -61,31 +61,30 @@ function App() {
     .setUserInfo(onUpdateUser)
     .then(response => {
       setCurrentUser(response)
+      setEditProfilePopupOpen(false);
     }).catch((err) => alert(err));
-    setEditProfilePopupOpen(false);
   }
   const handleUpdateAvatar = (onUpdateUser) => {
     api
     .setUserAvatar(onUpdateUser)
     .then(response => {
       setCurrentUser(response)
+      setEditAvatarPopupOpen(false);
     }).catch((err) => alert(err));
-    setEditAvatarPopupOpen(false);
-
   }
   const handleAddPlaceSubmit = (onUpdateCard) => {
     api
     .setAddPlase(onUpdateCard)
     .then(newCard => {
       setCards([newCard, ...cards]);
+      setAddPlacePopupOpen(false);
     }).catch((err) => alert(err));
-    setAddPlacePopupOpen(false);
   }
 
   function handleCardDelete(_id) {
     api.delmyCard(_id).then(() => {
       setCards((state) => state.map((c) => c).filter(state => state._id !== _id));
-  });   
+  }).catch((err) => alert(err));   
   } 
   
 
@@ -93,7 +92,7 @@ function App() {
     const isLiked = likes.some(i => i._id === currentUser._id);
     api.changeLikeCardStatus(_id, !isLiked).then((newCard) => {
       setCards((state) => state.map((c) => c._id === _id ? newCard : c));
-  });
+  }).catch((err) => alert(err));
   } 
   
 

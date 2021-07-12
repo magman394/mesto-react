@@ -11,7 +11,7 @@ class Api  {
     })
     .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
   }
-  getAllTasks() {
+  getCards() {
     return fetch(`${this.url}cards`, {
       headers: 
         this.token
